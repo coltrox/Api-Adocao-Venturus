@@ -34,6 +34,8 @@ const Animal = sequelize.define('Animal', {
         type: DataTypes.BLOB('long'),
         allowNull: false
     }
+}, {
+    tableName: 'Animais'
 });
 
 export default Animal;
