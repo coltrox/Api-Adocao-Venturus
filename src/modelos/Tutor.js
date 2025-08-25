@@ -30,6 +30,8 @@ const Tutor = sequelize.define('Tutor', {
         type: DataTypes.BOOLEAN,
         defaultValue: false
     }
+}, {
+    tableName: 'Tutores'
 });
 
 export default Tutor;

@@ -18,7 +18,6 @@ const Adocao = sequelize.define('Adocao', {
         }
     }
 }, {
-    // Adicione esta linha para definir o nome da tabela manualmente
     tableName: 'Adocoes'
 });
 
