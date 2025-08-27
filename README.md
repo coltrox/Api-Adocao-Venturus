@@ -19,7 +19,7 @@ Desenvolvida em Node.js com Express, utilizando Sequelize como ORM para um banco
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/coltrox/Api-Adocao-Venturus.git](https://github.com/coltrox/Api-Adocao-Venturus.git)
+    git clone https://github.com/coltrox/Api-Adocao-Venturus.git
     cd Api-Adocao-Venturus
     ```
 
@@ -293,4 +293,5 @@ Aprova ou recusa um pedido de adoção.
       "status": "aprovada"
     }
     ```
+
 -   **Resposta de Sucesso (200 OK):** Retorna o pedido de adoção com o status atualizado. Se aprovado, o animal será marcado como `adotado`.
