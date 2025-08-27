@@ -293,8 +293,4 @@ Aprova ou recusa um pedido de adoção.
       "status": "aprovada"
     }
     ```
- HEAD
 -   **Resposta de Sucesso (200 OK):** Retorna o pedido de adoção com o status atualizado. Se aprovado, o animal será marcado como `adotado`.
-
--   **Resposta de Sucesso (200 OK):** Retorna o pedido de adoção com o status atualizado. Se aprovado, o animal será marcado como `adotado`.
- 3ca01908a17f304bffac0b0b5be37ca57c0651e9
