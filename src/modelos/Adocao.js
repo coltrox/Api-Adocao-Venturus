@@ -1,3 +1,4 @@
+// src/modelos/Adocao.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
@@ -7,18 +8,32 @@ const Adocao = sequelize.define('Adocao', {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
+    // Apenas defina as colunas
+    TutorId: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
+    AnimalId: {
+        type: DataTypes.UUID,
+        allowNull: false
+    },
     status: {
         type: DataTypes.STRING,
-        defaultValue: 'pendente',
+        defaultValue: 'em_analise',
         validate: {
             isIn: {
-                args: [['pendente', 'aprovada', 'recusada']],
-                msg: "Status deve ser 'pendente', 'aprovada' ou 'recusada'"
+                args: [['em_analise', 'aprovada', 'recusada']],
+                msg: "Status deve ser 'em_analise', 'aprovada' ou 'recusada'"
             }
         }
+    },
+    posicao_fila: {
+        type: DataTypes.INTEGER,
+        allowNull: false
     }
 }, {
-    tableName: 'Adocoes'
+    tableName: 'Adocoes',
+    timestamps: true
 });
 
 export default Adocao;

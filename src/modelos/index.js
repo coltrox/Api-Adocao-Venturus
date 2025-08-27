@@ -1,19 +1,29 @@
-import Animal from './Animal.js';
+// src/modelos/index.js
 import Tutor from './Tutor.js';
+import Animal from './Animal.js';
+import Questionario from './Questionario.js';
 import Adocao from './Adocao.js';
 import Doacao from './Doacao.js';
 
-// Associações
-Tutor.hasMany(Animal);
-Animal.belongsTo(Tutor);
+// --- DEFINIÇÃO DAS ASSOCIAÇÕES ---
 
-Tutor.hasMany(Adocao);
-Adocao.belongsTo(Tutor);
+// Relação Tutor <-> Questionário (Um para Um)
+Tutor.hasOne(Questionario, { foreignKey: 'TutorId', as: 'questionario' });
+Questionario.belongsTo(Tutor, { foreignKey: 'TutorId', as: 'tutor' });
 
-Animal.hasMany(Adocao);
-Adocao.belongsTo(Animal);
+// Relação Animal <-> Adoção (Um para Muitos)
+Animal.hasMany(Adocao, { foreignKey: 'AnimalId' });
+Adocao.belongsTo(Animal, { foreignKey: 'AnimalId' });
 
-Tutor.hasMany(Doacao);
-Doacao.belongsTo(Tutor);
+// Relação Tutor <-> Adoção (Um para Muitos)
+Tutor.hasMany(Adocao, { foreignKey: 'TutorId' });
+Adocao.belongsTo(Tutor, { foreignKey: 'TutorId' });
 
-export { Animal, Tutor, Adocao, Doacao };
+// Exporta todos os modelos
+export {
+  Tutor,
+  Animal,
+  Questionario,
+  Adocao,
+  Doacao
+};
