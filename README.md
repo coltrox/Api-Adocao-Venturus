@@ -1,85 +1,73 @@
 # 🐾 API de Adoção de Pets - Versão Final
 
-API RESTful completa para o gerenciamento de uma plataforma de adoção de animais.  
-O sistema inclui cadastro detalhado de tutores, um questionário obrigatório para adoção, gerenciamento de animais, uma fila de pedidos de adoção, sistema de doações e rotas administrativas protegidas.
+API RESTful completa para o gerenciamento de uma plataforma de adoção de animais.
+Inclui cadastro de tutores, questionário obrigatório para adoção, gerenciamento de animais, fila de pedidos de adoção, sistema de doações e rotas administrativas protegidas.
 
-Desenvolvida em **Node.js** com **Express**, utilizando **Sequelize** como ORM para um banco de dados relacional (SQLite) e autenticação baseada em JWT.
+Desenvolvida em **Node.js** com **Express**, utilizando **Sequelize** como ORM e **SQLite** como banco de dados. Autenticação via **JWT**.
 
 ---
 
 ## ✅ Tecnologias Utilizadas
 
-- **Node.js**: Ambiente de execução JavaScript.
-- **Express.js**: Framework para construção da API.
-- **Sequelize**: ORM para Node.js, compatível com Postgres, MySQL, MariaDB, SQLite e MSSQL.
-- **SQLite**: Banco de dados relacional utilizado no projeto.
-- **JWT (JSON Web Token)**: Para autenticação e proteção de rotas.
-- **bcrypt**: Para criptografia segura de senhas.
-- **Multer**: Middleware para upload de imagens (armazenadas como Buffer).
-- **dotenv**: Para gerenciamento de variáveis de ambiente.
+* **Node.js**
+* **Express.js**
+* **Sequelize**
+* **SQLite**
+* **JWT (JSON Web Token)**
+* **bcrypt**
+* **Multer**
+* **dotenv**
 
 ---
 
 ## 📌 Configuração do Ambiente
 
-1. **Clone o repositório:**
-   ```bash
-   git clone https://github.com/coltrox/Api-Adocao-Venturus.git
-   cd Api-Adocao-Venturus
-   ```
+```bash
+git clone https://github.com/coltrox/Api-Adocao-Venturus.git
+cd Api-Adocao-Venturus
+npm install
+```
 
-2. **Instale as dependências:**
+Crie o arquivo `.env` na raiz:
 
-   ```bash
-   npm install
-   ```
+```env
+PORT=3000
+DB_STORAGE=./database.sqlite
+JWT_SECRET=sua_chave_secreta_super_segura
+```
 
-3. **Crie o arquivo `.env`** na raiz do projeto com as seguintes variáveis:
+Opcional: criar usuário admin inicial:
 
-   ```env
-   PORT=3000
-   DB_STORAGE=./database.sqlite
-   JWT_SECRET=sua_chave_secreta_super_segura
-   ```
+```bash
+npm run seed
+```
 
-4. **(Opcional) Crie um usuário administrador inicial:**
+Inicie o servidor:
 
-   ```bash
-   npm run seed
-   ```
-
-5. **Inicie o servidor:**
-
-   * Modo de desenvolvimento:
-
-     ```bash
-     npm run dev
-     ```
-   * Produção:
-
-     ```bash
-     npm run start
-     ```
+```bash
+npm run dev      # desenvolvimento
+npm run start    # produção
+```
 
 ---
 
 ## 🔑 Autenticação
 
-Para acessar rotas protegidas é necessário um **token JWT**.
+1. `POST /api/login` com email e senha.
+2. Recebe um `token` JWT.
+3. Inclua no header `Authorization`:
 
-1. Faça `POST /api/login` com email e senha.
-2. A API retornará um `token`.
-3. Use o token no cabeçalho `Authorization`:
-
-   ```
-   Authorization: Bearer <seu_token_jwt>
-   ```
+```
+Authorization: Bearer <seu_token_jwt>
+```
 
 ---
 
 ## 📖 Documentação da API
 
-Prefixo base para todos os endpoints: `/api`
+Prefixo base: `/api`
+
+---
 
 ### Autenticação
 
@@ -87,32 +75,32 @@ Prefixo base para todos os endpoints: `/api`
 
 Login de tutor ou admin.
 
-* **Body:**
+**Body:**
 
-  ```json
-  {
+```json
+{
+  "email": "tutor@email.com",
+  "senha": "123456"
+}
+```
+
+**Resposta:**
+
+```json
+{
+  "usuario": {
+    "id": "uuid",
+    "nome_completo": "Nome do Tutor",
     "email": "tutor@email.com",
-    "senha": "123456"
-  }
-  ```
-
-* **Resposta:**
-
-  ```json
-  {
-    "usuario": {
-      "id": "uuid-do-usuario",
-      "nome_completo": "Nome do Tutor",
-      "email": "tutor@email.com",
-      "admin": false
-    },
-    "token": "seu_token_jwt"
-  }
-  ```
+    "admin": false
+  },
+  "token": "seu_token_jwt"
+}
+```
 
 ---
 
-### Usuários / Tutores
+### Tutores / Usuários
 
 #### `POST /usuario`
 
@@ -132,11 +120,11 @@ Cadastra tutor.
 
 #### `PATCH /tutores/:id`
 
-Atualiza dados de tutor. (Protegida)
+Atualiza dados do tutor (protegida).
 
 #### `GET /tutores/:id`
 
-Detalhes de um tutor e seu questionário. (Protegida)
+Detalhes de tutor e questionário (protegida).
 
 ---
 
@@ -144,7 +132,7 @@ Detalhes de um tutor e seu questionário. (Protegida)
 
 #### `POST /questionario`
 
-Envia respostas (obrigatório antes de adotar). (Protegida)
+Envio de respostas (protegida).
 
 ```json
 {
@@ -156,18 +144,25 @@ Envia respostas (obrigatório antes de adotar). (Protegida)
 
 ---
 
-### Animais (Rotas Públicas)
+### Animais
+
+#### Rotas Públicas
 
 #### `GET /animais`
 
-Lista animais disponíveis para adoção.
-Suporta filtros: `/api/animais?especie=gato&porte=pequeno`
+Lista animais disponíveis para adoção. Filtros possíveis:
+
+```
+/api/animais?especie=gato&porte=pequeno
+```
+
+**Resposta:**
 
 ```json
 {
   "data": [
     {
-      "id": "uuid-do-animal",
+      "id": "uuid",
       "nome": "Frajola",
       "especie": "gato",
       "porte": "pequeno"
@@ -179,32 +174,55 @@ Suporta filtros: `/api/animais?especie=gato&porte=pequeno`
 
 ---
 
+#### Rotas Admin
+
+#### `GET /animais/:id`
+
+Detalhes de um animal com pedidos de adoção (admin).
+
+#### `POST /admin/animais`
+
+Cadastro de animal (com foto).
+
+#### `PATCH /admin/animais/:id`
+
+Atualiza dados do animal.
+
+#### `DELETE /admin/animais/:id`
+
+Remove animal.
+
+---
+
 ### Adoções
 
 #### `POST /adocoes`
 
-Cria pedido de adoção. (Protegida)
+Cria pedido de adoção (protegida).
 
-* **Body:**
+```json
+{
+  "animalId": "uuid-do-animal"
+}
+```
 
-  ```json
-  {
-    "animalId": "uuid-do-animal"
-  }
-  ```
+**Resposta:**
 
-* **Resposta:**
+```json
+{
+  "id": "uuid-do-pedido",
+  "tutor_id": "uuid-do-tutor",
+  "animal_id": "uuid-do-animal",
+  "status": "em_analise",
+  "posicao_fila": 1,
+  "criado_em": "2025-08-27T14:30:00.000Z"
+}
+```
 
-  ```json
-  {
-    "id": "uuid-do-pedido",
-    "tutor_id": "uuid-do-tutor",
-    "animal_id": "uuid-do-animal",
-    "status": "em_analise",
-    "posicao_fila": 1,
-    "criado_em": "2025-08-27T14:30:00.000Z"
-  }
-  ```
+#### `PATCH /adocoes/:id`
+
+Atualiza status da adoção (`aprovada` ou `recusada`).
+Se aprovada, o animal deixa de aparecer nas listagens públicas.
 
 ---
 
@@ -223,11 +241,11 @@ Registra doação.
 }
 ```
 
-Resposta:
+**Resposta:**
 
 ```json
 {
-  "doacao_id": "uuid-da-doacao",
+  "doacao_id": "uuid",
   "nome": "Maria Souza",
   "valor": 50.00
 }
@@ -235,52 +253,6 @@ Resposta:
 
 ---
 
-## 🛠️ Administração (Admins)
-
-#### `POST /admin/animais`
-
-Cadastra animal (com foto).
-
-#### `GET /animais/:id`
-
-Detalhes de um animal com pedidos de adoção.
-
-```json
-{
-  "id": "uuid-do-animal",
-  "nome": "Rex",
-  "pedidos": [
-    {
-      "id": "uuid-pedido-1",
-      "status": "em_analise",
-      "criado_em": "2025-08-27T14:30:00.000Z"
-    },
-    {
-      "id": "uuid-pedido-2",
-      "status": "aprovada",
-      "criado_em": "2025-08-28T10:00:00.000Z"
-    }
-  ]
-}
-```
-
-#### `PATCH /admin/animais/:id`
-
-Atualiza dados do animal (ex.: descrição, porte, vacinação).
-
-#### `DELETE /admin/animais/:id`
-
-Remove animal.
-
-#### `PATCH /adocoes/:id`
-
-Atualiza status da adoção (`aprovada` ou `recusada`).
-Se **aprovada**, o animal **não será exibido** nas listagens públicas.
-
 ## 👥 Desenvolvedores
 
-Este projeto foi desenvolvido por:
-
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
-
-
