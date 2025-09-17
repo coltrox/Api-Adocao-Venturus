@@ -110,5 +110,3 @@ Prefixo base: `/api`
 ## 👥 Desenvolvedores
 
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
-
-Quer que eu faça isso também?
