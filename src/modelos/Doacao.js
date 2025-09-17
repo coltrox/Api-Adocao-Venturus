@@ -2,23 +2,28 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
 const Doacao = sequelize.define('Doacao', {
-    id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    // Adicionei campos de exemplo, você pode ajustar
-    // para os campos que existem no seu modelo.
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            isEmail: true
+        }
+    },
     valor: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false
     },
-    metodo: {
-        type: DataTypes.STRING,
-        allowNull: false
+    mensagem: {
+        type: DataTypes.TEXT,
+        allowNull: true
     }
 }, {
-    tableName: 'Doacoes'
+    tableName: 'Doacoes',
+    timestamps: true
 });
 
 export default Doacao;

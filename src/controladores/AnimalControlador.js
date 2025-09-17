@@ -4,14 +4,12 @@ class AnimalControlador {
   // POST /animais (Rota de Admin)
   static async cadastrar(req, res) {
     try {
-      // Usando 'adotado' do modelo, que tem o valor padrão 'false'
       const { nome, especie, porte, castrado, vacinado, descricao } = req.body;
       
       if (!req.file) {
         return res.status(400).json({ erro: 'O campo foto é obrigatório.' });
       }
 
-      // Converte valores de formulário (que podem ser strings) para booleanos
       const boolCastrado = String(castrado).toLowerCase() === 'true';
       const boolVacinado = String(vacinado).toLowerCase() === 'true';
 
@@ -26,7 +24,7 @@ class AnimalControlador {
       });
       
       const response = novoAnimal.toJSON();
-      response.foto = "Buffer"; // Retorna a string "Buffer" como na especificação
+      response.foto = "Buffer";
 
       return res.status(201).json(response);
     } catch (erro) {
@@ -41,23 +39,20 @@ class AnimalControlador {
   // GET /animais (Público, com filtros)
   static async listarDisponiveis(req, res) {
     try {
-      // 1. Lógica de Filtros
       const { especie, porte, castrado, vacinado } = req.query;
-      const where = { adotado: false }; // Sempre filtra por animais não adotados
+      const where = { adotado: false };
 
       if (especie) where.especie = especie;
       if (porte) where.porte = porte;
       if (castrado) where.castrado = String(castrado).toLowerCase() === 'true';
       if (vacinado) where.vacinado = String(vacinado).toLowerCase() === 'true';
 
-      // 2. Usar findAndCountAll para paginação e total
       const { count, rows } = await Animal.findAndCountAll({
         where,
-        order: [['createdAt', 'ASC']], // Ordena do mais antigo para o mais novo
-        attributes: { exclude: ['foto'] } // Exclui o buffer da foto da listagem
+        order: [['createdAt', 'ASC']],
+        attributes: { exclude: ['foto'] }
       });
 
-      // 3. Formato de resposta padronizado
       return res.status(200).json({
         data: rows,
         total: count
@@ -73,19 +68,17 @@ class AnimalControlador {
     try {
       const { id } = req.params;
       const animal = await Animal.findByPk(id, {
-        // 4. Incluir pedidos de adoção associados
         include: [{
           model: Adocao,
-          order: [['createdAt', 'ASC']] // Ordena os pedidos por ordem de chegada
+          order: [['createdAt', 'ASC']] 
         }]
       });
 
       if (!animal) return res.status(404).json({ erro: 'Animal não encontrado' });
       
       const response = animal.toJSON();
-      // Mapeia para retornar apenas os IDs dos pedidos, como na especificação
       response.pedidos = response.Adocoes ? response.Adocoes.map(p => p.id) : [];
-      delete response.Adocoes; // Remove o objeto completo de adoções
+      delete response.Adocoes;
       response.foto = response.foto ? "Buffer" : null;
 
       return res.json(response);
@@ -99,7 +92,6 @@ class AnimalControlador {
   static async adminAtualizar(req, res) {
     try {
       const { id } = req.params;
-      // Adicionado 'adotado' aos campos que podem ser atualizados
       const dadosParaAtualizar = req.body;
 
       if (Object.keys(dadosParaAtualizar).length === 0 && !req.file) {
@@ -109,14 +101,12 @@ class AnimalControlador {
       const animal = await Animal.findByPk(id);
       if (!animal) return res.status(404).json({ erro: 'Animal não encontrado' });
 
-      // Adiciona o buffer do novo arquivo de imagem, se existir
       if (req.file) {
         dadosParaAtualizar.foto = req.file.buffer;
       }
 
       await animal.update(dadosParaAtualizar);
 
-      // Retorna o animal atualizado conforme a especificação
       const { foto, ...animalSemFoto } = animal.toJSON();
       return res.json(animalSemFoto);
     } catch (e) {
@@ -133,7 +123,7 @@ class AnimalControlador {
       if (!animal) return res.status(404).json({ erro: 'Animal não encontrado' });
 
       await animal.destroy();
-      return res.status(204).send(); // 204 No Content
+      return res.status(204).send();
     } catch (e) {
       console.error(e);
       return res.status(500).json({ erro: 'Erro ao remover animal' });

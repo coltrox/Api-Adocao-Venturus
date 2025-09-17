@@ -1,4 +1,3 @@
-// src/modelos/Adocao.js
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/database.js';
 
@@ -8,7 +7,6 @@ const Adocao = sequelize.define('Adocao', {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true
     },
-    // Apenas defina as colunas
     TutorId: {
         type: DataTypes.UUID,
         allowNull: false
@@ -29,6 +27,11 @@ const Adocao = sequelize.define('Adocao', {
     },
     posicao_fila: {
         type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    criado_em: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
         allowNull: false
     }
 }, {
