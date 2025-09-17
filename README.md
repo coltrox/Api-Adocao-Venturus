@@ -26,8 +26,7 @@ Desenvolvida em **Node.js** com **Express**, utilizando **Sequelize** como ORM p
    ```bash
    git clone https://github.com/coltrox/Api-Adocao-Venturus.git
    cd Api-Adocao-Venturus
-```
-```
+   ```
 
 2. **Instale as dependências:**
 
@@ -283,4 +282,5 @@ Se **aprovada**, o animal **não será exibido** nas listagens públicas.
 Este projeto foi desenvolvido por:
 
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
+
 
