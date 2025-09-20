@@ -121,21 +121,21 @@ Com o token de admin, agora você pode cadastrar novos animais na plataforma.
   "castrado": true,
   "vacinado": true,
   "descricao": "Um cãozinho muito dócil e brincalhão, adora crianças e outros animais. Se adapta bem em apartamentos.",
-  "foto": " --- "
+  "foto": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
 }
 ```
 
 #### Gerenciamento Completo (Admin)
 
-| Método | Endpoint | Descrição e Exemplo |
-| :--- | :--- | :--- |
-| `GET` | `http://localhost:3000/api/tutores` | Lista todos os tutores cadastrados no sistema. |
-| `GET` | `http://localhost:3000/api/admin/animais/:id` | Consulta os detalhes de um animal específico e todos os seus pedidos de adoção. |
-| `PATCH` | `http://localhost:3000/api/admin/animais/:id` | Altera os dados de um animal. <br>**Exemplo:** `{"porte": "médio", "vacinado": false}` |
-| `DELETE` | `http://localhost:3000/api/admin/animais/:id` | Remove um animal do sistema. |
-| `PATCH` | `http://localhost:3000/api/adocoes/:id` | Altera o status de um pedido de adoção (`em_analise`, `aprovada`, `rejeitada`). <br>**Exemplo:** `{"status": "aprovada"}` |
-| `GET` | `http://localhost:3000/api/adocoes` | Lista todos os pedidos de adoção registrados. |
-| `GET` | `http://localhost:3000/api/doacoes` | Lista todas as doações recebidas. |
+| Método | Endpoint | Descrição | Exemplo de Body |
+| :--- | :--- | :--- |:--- |
+| `GET` | `http://localhost:3000/api/tutores` | Lista todos os tutores cadastrados no sistema. | - |
+| `GET` | `http://localhost:3000/api/admin/animais/:id` | Consulta os detalhes de um animal específico e seus pedidos de adoção. | - |
+| `PATCH` | `http://localhost:3000/api/admin/animais/:id` | Altera um ou mais dados de um animal existente. | `{"porte": "médio", "vacinado": false}` |
+| `DELETE` | `http://localhost:3000/api/admin/animais/:id` | Remove um animal do sistema. | - |
+| `PATCH` | `http://localhost:3000/api/adocoes/:id` | Altera o status de um pedido de adoção. | `{"status": "aprovada"}` |
+| `GET` | `http://localhost:3000/api/adocoes` | Lista todos os pedidos de adoção registrados. | - |
+| `GET` | `http://localhost:3000/api/doacoes` | Lista todas as doações recebidas. | - |
 
 -----
 
@@ -143,7 +143,7 @@ Com o token de admin, agora você pode cadastrar novos animais na plataforma.
 
 Rotas que não exigem autenticação.
 
-| Método | Endpoint | Descrição e Exemplo |
+| Método | Endpoint | Descrição e Exemplo de Query |
 | :--- | :--- | :--- |
 | `POST` | `http://localhost:3000/api/usuario` | Cria um novo usuário (tutor). Veja o exemplo completo na **Seção 1**. |
 | `GET` | `http://localhost:3000/api/animais` | Lista os animais para adoção, com filtros opcionais. <br>**Exemplo:** `?especie=gato&porte=pequeno` |
@@ -231,15 +231,14 @@ Antes de poder solicitar uma adoção, o tutor **deve** preencher completamente 
 
 #### Outras Ações do Tutor
 
-| Método | Endpoint | Descrição e Exemplo |
-| :--- | :--- | :--- |
-| `GET` | `http://localhost:3000/api/tutores/:id` | Consulta os dados do próprio perfil, incluindo o questionário. |
-| `PATCH` | `http://localhost:3000/api/tutores/:id` | Altera os dados do próprio perfil. <br>**Exemplo:** `{"cidade": "Campinas"}` |
-| `POST` | `http://localhost:3000/api/adocoes` | Solicita a adoção de um animal (requer questionário preenchido).<br>**Exemplo:** `{"animalId": "uuid-do-animal"}` |
+| Método | Endpoint | Descrição | Exemplo de Body |
+| :--- | :--- | :--- | :--- |
+| `GET` | `http://localhost:3000/api/tutores/:id` | Consulta os dados do próprio perfil. | - |
+| `PATCH` | `http://localhost:3000/api/tutores/:id` | Altera os dados do próprio perfil. | `{"cidade": "Campinas", "telefone": "19123456789"}` |
+| `POST` | `http://localhost:3000/api/adocoes` | Solicita a adoção de um animal. | `{"animalId": "uuid-do-animal"}` |
 
 -----
 
 ## 👥 Desenvolvedores
 
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
-
