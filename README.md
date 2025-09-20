@@ -121,7 +121,7 @@ Com o token de admin, agora você pode cadastrar novos animais na plataforma.
   "castrado": true,
   "vacinado": true,
   "descricao": "Um cãozinho muito dócil e brincalhão, adora crianças e outros animais. Se adapta bem em apartamentos.",
-  "foto": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+  "foto": " --- "
 }
 ```
 
@@ -242,3 +242,4 @@ Antes de poder solicitar uma adoção, o tutor **deve** preencher completamente 
 ## 👥 Desenvolvedores
 
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
+
