@@ -68,15 +68,15 @@ Para gerenciar a plataforma, o primeiro passo é criar um usuário com permissõ
 ```json
 {
   "nome_completo": "Administrador do Sistema",
-  "email": "admin@email.com",
-  "senha": "senha_segura_admin",
+  "email": "admin@gmail.com",
+  "senha": "123456",
   "cidade": "São Paulo",
   "estado": "SP",
   "idade": 35,
-  "telefone": "11987654321",
-  "instagram": "@admin_pets",
-  "facebook": "/admin.pets",
-  "endereco": "Rua da Administração, 123",
+  "telefone": "19999999999",
+  "instagram": "@adote_um_pet",
+  "facebook": "/adote_um_pet",
+  "endereco": "Rua zero, 123",
   "admin": true
 }
 ```
@@ -87,7 +87,7 @@ Com o usuário criado, o próximo passo é autenticá-lo para obter um token de 
 
 | Método | Endpoint | Body |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/login` | `{"email":"admin@email.com","senha":"senha_segura_admin"}` |
+| `POST` | `http://localhost:3000/api/login` | `{"email":"admin@gmail.com","senha":"123456"}` |
 
 **Atenção:** Copie e guarde o `token` retornado no login. Ele deverá ser enviado no cabeçalho de autorização para acessar as rotas protegidas.
 
@@ -121,7 +121,7 @@ Com o token de admin, agora você pode cadastrar novos animais na plataforma.
   "castrado": true,
   "vacinado": true,
   "descricao": "Um cãozinho muito dócil e brincalhão, adora crianças e outros animais. Se adapta bem em apartamentos.",
-  "foto": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+  "foto": " --- "
 }
 ```
 
@@ -162,7 +162,7 @@ Qualquer pessoa pode realizar uma doação para a organização através desta r
 ```json
 {
   "nome": "Maria Souza",
-  "email": "maria@email.com",
+  "email": "maria@gmail.com",
   "valor": 75.50,
   "mensagem": "Parabéns pelo trabalho incrível! Espero que ajude."
 }
@@ -242,3 +242,4 @@ Antes de poder solicitar uma adoção, o tutor **deve** preencher completamente 
 ## 👥 Desenvolvedores
 
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
+
