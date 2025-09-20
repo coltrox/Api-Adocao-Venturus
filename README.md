@@ -59,17 +59,35 @@ O prefixo base para todas as rotas é `/api`.
 
 Para gerenciar a plataforma, o primeiro passo é criar um usuário com permissões de administrador. Isso é feito através da rota pública de criação de usuário, definindo o campo `admin` como `true`.
 
-| Método | Endpoint | Body (Exemplo Completo) |
+| Método | Endpoint | Descrição |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/usuario` | `{<br>  "nome_completo": "Administrador do Sistema",<br>  "email": "admin@email.com",<br>  "senha": "senha_segura_admin",<br>  "cidade": "São Paulo",<br>  "estado": "SP",<br>  "idade": 35,<br>  "telefone": "11987654321",<br>  "instagram": "@admin_pets",<br>  "facebook": "/admin.pets",<br>  "endereco": "Rua da Administração, 123",<br>  "admin": true<br>}` |
+| `POST` | `http://localhost:3000/api/usuario` | Cria um novo usuário com todos os campos. Para um admin, defina `"admin": true`. |
+
+**Exemplo de Body:**
+
+```json
+{
+  "nome_completo": "Administrador do Sistema",
+  "email": "admin@email.com",
+  "senha": "senha_segura_admin",
+  "cidade": "São Paulo",
+  "estado": "SP",
+  "idade": 35,
+  "telefone": "11987654321",
+  "instagram": "@admin_pets",
+  "facebook": "/admin.pets",
+  "endereco": "Rua da Administração, 123",
+  "admin": true
+}
+```
 
 ### Passo 2: Realizando o Login
 
-Com o usuário administrador criado, o próximo passo é autenticá-lo para obter um token de acesso. Este token será necessário para acessar todas as rotas protegidas.
+Com o usuário criado, o próximo passo é autenticá-lo para obter um token de acesso. Este token será necessário para acessar todas as rotas protegidas.
 
 | Método | Endpoint | Body |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/login` | `json {"email":"admin@email.com","senha":"senha_segura_admin"}` |
+| `POST` | `http://localhost:3000/api/login` | `{"email":"admin@email.com","senha":"senha_segura_admin"}` |
 
 **Atenção:** Copie e guarde o `token` retornado no login. Ele deverá ser enviado no cabeçalho de autorização para acessar as rotas protegidas.
 
@@ -89,9 +107,23 @@ As rotas a seguir são exclusivas para administradores e requerem a inclusão do
 
 Com o token de admin, agora você pode cadastrar novos animais na plataforma.
 
-| Método | Endpoint | Body (Exemplo Completo) |
+| Método | Endpoint | Descrição |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/admin/animais` | `{<br>  "nome": "Bolinha",<br>  "especie": "Cachorro",<br>  "porte": "Pequeno",<br>  "castrado": true,<br>  "vacinado": true,<br>  "descricao": "Um cãozinho muito dócil e brincalhão, adora crianças e outros animais. Se adapta bem em apartamentos.",<br>  "foto": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."<br>}` |
+| `POST` | `http://localhost:3000/api/admin/animais` | Cadastra um novo animal no sistema com todos os campos. |
+
+**Exemplo de Body:**
+
+```json
+{
+  "nome": "Bolinha",
+  "especie": "Cachorro",
+  "porte": "Pequeno",
+  "castrado": true,
+  "vacinado": true,
+  "descricao": "Um cãozinho muito dócil e brincalhão, adora crianças e outros animais. Se adapta bem em apartamentos.",
+  "foto": "data:image/jpeg;base64,/9j/4AAQSkZJRg..."
+}
+```
 
 #### Gerenciamento Completo (Admin)
 
@@ -99,9 +131,9 @@ Com o token de admin, agora você pode cadastrar novos animais na plataforma.
 | :--- | :--- | :--- |
 | `GET` | `http://localhost:3000/api/tutores` | Lista todos os tutores cadastrados no sistema. |
 | `GET` | `http://localhost:3000/api/admin/animais/:id` | Consulta os detalhes de um animal específico e todos os seus pedidos de adoção. |
-| `PATCH` | `http://localhost:3000/api/admin/animais/:id` | Altera os dados de um animal. <br>**Exemplo:** `json {"porte": "médio", "vacinado": false}` |
+| `PATCH` | `http://localhost:3000/api/admin/animais/:id` | Altera os dados de um animal. <br>**Exemplo:** `{"porte": "médio", "vacinado": false}` |
 | `DELETE` | `http://localhost:3000/api/admin/animais/:id` | Remove um animal do sistema. |
-| `PATCH` | `http://localhost:3000/api/adocoes/:id` | Altera o status de um pedido de adoção (`em_analise`, `aprovada`, `rejeitada`). <br>**Exemplo:** `json {"status": "aprovada"}` |
+| `PATCH` | `http://localhost:3000/api/adocoes/:id` | Altera o status de um pedido de adoção (`em_analise`, `aprovada`, `rejeitada`). <br>**Exemplo:** `{"status": "aprovada"}` |
 | `GET` | `http://localhost:3000/api/adocoes` | Lista todos os pedidos de adoção registrados. |
 | `GET` | `http://localhost:3000/api/doacoes` | Lista todas as doações recebidas. |
 
@@ -113,17 +145,28 @@ Rotas que não exigem autenticação.
 
 | Método | Endpoint | Descrição e Exemplo |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/usuario` | Cria um novo usuário (tutor). |
-| `GET` | `http://localhost:3000/api/animais` | Lista os animais disponíveis para adoção, com filtros opcionais. <br>**Exemplo:** `?especie=gato&porte=pequeno` |
+| `POST` | `http://localhost:3000/api/usuario` | Cria um novo usuário (tutor). Veja o exemplo completo na **Seção 1**. |
+| `GET` | `http://localhost:3000/api/animais` | Lista os animais para adoção, com filtros opcionais. <br>**Exemplo:** `?especie=gato&porte=pequeno` |
 | `GET` | `http://localhost:3000/api/animais/:id` | Exibe os detalhes de um animal específico. |
 
 #### Realizando uma Doação
 
-Qualquer pessoa pode realizar uma doação para a organização através da rota pública abaixo.
+Qualquer pessoa pode realizar uma doação para a organização através desta rota.
 
-| Método | Endpoint | Body (Exemplo Completo) |
+| Método | Endpoint | Descrição |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/doacoes` | `{<br>  "nome": "Maria Souza",<br>  "email": "maria@email.com",<br>  "valor": 75.50,<br>  "mensagem": "Parabéns pelo trabalho incrível! Espero que ajude."<br>}` |
+| `POST` | `http://localhost:3000/api/doacoes` | Registra uma nova doação para a organização. |
+
+**Exemplo de Body:**
+
+```json
+{
+  "nome": "Maria Souza",
+  "email": "maria@email.com",
+  "valor": 75.50,
+  "mensagem": "Parabéns pelo trabalho incrível! Espero que ajude."
+}
+```
 
 -----
 
@@ -135,17 +178,64 @@ Estas rotas requerem que o usuário (tutor) esteja logado e envie o `Bearer Toke
 
 Antes de poder solicitar uma adoção, o tutor **deve** preencher completamente o questionário. O `TutorId` é extraído automaticamente do token de autenticação.
 
-| Método | Endpoint | Body (Exemplo Completo) |
+| Método | Endpoint | Descrição |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/questionario` | `{<br>  "empregado": true,<br>  "quantos_animais_possui": 1,<br>  "motivos_para_adotar": "Quero companhia e dar um lar a um animal necessitado.",<br>  "quem_vai_sustentar_o_animal": "Eu e meu cônjuge.",<br>  "numero_adultos_na_casa": 2,<br>  "numero_criancas_na_casa": 1,<br>  "idades_criancas": [8],<br>  "residencia_tipo": "Casa com quintal murado.",<br>  "proprietario_permite_animais": true,<br>  "todos_de_acordo_com_adocao": true,<br>  "responsavel_pelo_animal": "Eu, o tutor principal.",<br>  "responsavel_concorda_com_adocao": true,<br>  "ha_alergico_ou_pessoas_que_nao_gostam": false,<br>  "gasto_mensal_estimado": 250.00,<br>  "valor_disponivel_no_orcamento": true,<br>  "tipo_alimentacao": "Ração Super Premium.",<br>  "local_que_o_animal_vai_ficar": "Dentro de casa, com acesso ao quintal.",<br>  "forma_de_permanencia": "Solto dentro de casa/quintal.",<br>  "forma_de_confinamento": "Nenhuma, sempre solto.",<br>  "tera_brinquedos": true,<br>  "tera_passeios_acompanhado": true,<br>  "tera_passeios_sozinho": false,<br>  "companhia_outro_animal": true,<br>  "companhia_humana_24h": false,<br>  "companhia_humana_parcial": true,<br>  "sem_companhia_humana": false,<br>  "sem_companhia_animal": false,<br>  "o_que_faz_em_viagem": "Deixo com um familiar de confiança ou em hotel para pets.",<br>  "o_que_faz_se_fugir": "Procuro imediatamente na vizinhança, faço cartazes e divulgo nas redes sociais.",<br>  "o_que_faz_se_nao_puder_criar": "Procuro um novo lar responsável entre amigos ou familiares.",<br>  "destino_animais_anteriores": "Meu último animal faleceu de velhice, com 15 anos.",<br>  "costuma_esterilizar": true,<br>  "costuma_vacinar": true,<br>  "costuma_vermifugar": true,<br>  "veterinario_usual": "Clínica Vet Vida, Dr. Carlos.",<br>  "envia_fotos_e_videos_do_local": true,<br>  "aceita_visitas_e_fotos_do_animal": true,<br>  "topa_entrar_grupo_adotantes": true,<br>  "concorda_com_taxa_adocao": true,<br>  "data_disponivel_para_buscar_animal": "2025-10-05"<br>}` |
+| `POST` | `http://localhost:3000/api/questionario` | Envia o formulário de pré-adoção preenchido. |
+
+**Exemplo de Body:**
+
+```json
+{
+  "empregado": true,
+  "quantos_animais_possui": 1,
+  "motivos_para_adotar": "Quero companhia e dar um lar a um animal necessitado.",
+  "quem_vai_sustentar_o_animal": "Eu e meu cônjuge.",
+  "numero_adultos_na_casa": 2,
+  "numero_criancas_na_casa": 1,
+  "idades_criancas": [8],
+  "residencia_tipo": "Casa com quintal murado.",
+  "proprietario_permite_animais": true,
+  "todos_de_acordo_com_adocao": true,
+  "responsavel_pelo_animal": "Eu, o tutor principal.",
+  "responsavel_concorda_com_adocao": true,
+  "ha_alergico_ou_pessoas_que_nao_gostam": false,
+  "gasto_mensal_estimado": 250.00,
+  "valor_disponivel_no_orcamento": true,
+  "tipo_alimentacao": "Ração Super Premium.",
+  "local_que_o_animal_vai_ficar": "Dentro de casa, com acesso ao quintal.",
+  "forma_de_permanencia": "Solto dentro de casa/quintal.",
+  "forma_de_confinamento": "Nenhuma, sempre solto.",
+  "tera_brinquedos": true,
+  "tera_passeios_acompanhado": true,
+  "tera_passeios_sozinho": false,
+  "companhia_outro_animal": true,
+  "companhia_humana_24h": false,
+  "companhia_humana_parcial": true,
+  "sem_companhia_humana": false,
+  "sem_companhia_animal": false,
+  "o_que_faz_em_viagem": "Deixo com um familiar de confiança ou em hotel para pets.",
+  "o_que_faz_se_fugir": "Procuro imediatamente na vizinhança, faço cartazes e divulgo nas redes sociais.",
+  "o_que_faz_se_nao_puder_criar": "Procuro um novo lar responsável entre amigos ou familiares.",
+  "destino_animais_anteriores": "Meu último animal faleceu de velhice, com 15 anos.",
+  "costuma_esterilizar": true,
+  "costuma_vacinar": true,
+  "costuma_vermifugar": true,
+  "veterinario_usual": "Clínica Vet Vida, Dr. Carlos.",
+  "envia_fotos_e_videos_do_local": true,
+  "aceita_visitas_e_fotos_do_animal": true,
+  "topa_entrar_grupo_adotantes": true,
+  "concorda_com_taxa_adocao": true,
+  "data_disponivel_para_buscar_animal": "2025-10-05"
+}
+```
 
 #### Outras Ações do Tutor
 
 | Método | Endpoint | Descrição e Exemplo |
 | :--- | :--- | :--- |
 | `GET` | `http://localhost:3000/api/tutores/:id` | Consulta os dados do próprio perfil, incluindo o questionário. |
-| `PATCH` | `http://localhost:3000/api/tutores/:id` | Altera os dados do próprio perfil. <br>**Exemplo:** `json {"cidade": "Campinas"}` |
-| `POST` | `http://localhost:3000/api/adocoes` | Solicita a adoção de um animal (requer questionário preenchido).<br>**Exemplo:** `json {"animalId": "uuid-do-animal"}` |
+| `PATCH` | `http://localhost:3000/api/tutores/:id` | Altera os dados do próprio perfil. <br>**Exemplo:** `{"cidade": "Campinas"}` |
+| `POST` | `http://localhost:3000/api/adocoes` | Solicita a adoção de um animal (requer questionário preenchido).<br>**Exemplo:** `{"animalId": "uuid-do-animal"}` |
 
 -----
 
