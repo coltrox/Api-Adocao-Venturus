@@ -40,7 +40,7 @@ class AnimalControlador {
   static async listarDisponiveis(req, res) {
     try {
       const { especie, porte, castrado, vacinado } = req.query;
-      const where = { adotado: false };
+      const where = {};
 
       if (especie) where.especie = especie;
       if (porte) where.porte = porte;
@@ -60,6 +60,26 @@ class AnimalControlador {
     } catch (erro) {
       console.error(erro);
       return res.status(500).json({ erro: 'Erro ao buscar animais' });
+    }
+  }
+
+  // GET /animais/:id (Público)
+  static async buscarPorIdPublico(req, res) {
+    try {
+      const { id } = req.params;
+      
+      const animal = await Animal.findByPk(id);
+
+      if (!animal) {
+        return res.status(404).json({ erro: 'Animal não encontrado.' });
+      }
+      const { foto, ...animalPublico } = animal.toJSON();
+
+      return res.status(200).json(animalPublico);
+
+    } catch (erro) {
+      console.error(erro);
+      return res.status(500).json({ erro: 'Erro interno ao buscar o animal.' });
     }
   }
 

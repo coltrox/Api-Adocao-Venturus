@@ -47,6 +47,22 @@ class TutorControlador {
     }
   }
 
+  // GET /tutores
+  static async listarTodos(req, res) {
+    try {
+      const tutores = await Tutor.findAll();
+      const tutoresSemSenha = tutores.map(tutor => {
+        const { senha: _, ...resto } = tutor.toJSON();
+        return resto;
+      });
+
+      return res.status(200).json(tutoresSemSenha);
+    } catch (e) {
+      console.error(e);
+      return res.status(500).json({ erro: "Erro ao listar os tutores." });
+    }
+  }
+
   // PATCH /tutores/:id
   static async atualizar(req, res) {
     try {

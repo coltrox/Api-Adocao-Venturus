@@ -23,10 +23,10 @@ Desenvolvida em **Node.js** com **Express**, utilizando **Sequelize** como ORM e
 ## 📌 Configuração do Ambiente
 
 ```bash
-git clone https://github.com/coltrox/Api-Adocao-Venturus.git
+git clone [https://github.com/coltrox/Api-Adocao-Venturus.git](https://github.com/coltrox/Api-Adocao-Venturus.git)
 cd Api-Adocao-Venturus
 npm install
-```
+````
 
 Crie o arquivo `.env` na raiz:
 
@@ -76,7 +76,6 @@ Para gerenciar a plataforma, o primeiro passo é criar um usuário com permissõ
   "telefone": "19999999999",
   "instagram": "@adote_um_pet",
   "facebook": "/adote_um_pet",
-  "endereco": "Rua zero, 123",
   "admin": true
 }
 ```
@@ -105,25 +104,23 @@ As rotas a seguir são exclusivas para administradores e requerem a inclusão do
 
 #### Criando um Novo Animal
 
-Com o token de admin, agora você pode cadastrar novos animais na plataforma.
+Com o token de admin, agora você pode cadastrar novos animais na plataforma. A requisição para esta rota deve ser do tipo **`multipart/form-data`**.
 
 | Método | Endpoint | Descrição |
 | :--- | :--- | :--- |
-| `POST` | `http://localhost:3000/api/admin/animais` | Cadastra um novo animal no sistema com todos os campos. |
+| `POST` | `http://localhost:3000/api/admin/animais` | Cadastra um novo animal no sistema. |
 
-**Exemplo de Body:**
+**Campos (form-data):**
 
-```json
-{
-  "nome": "Bolinha",
-  "especie": "Cachorro",
-  "porte": "Pequeno",
-  "castrado": true,
-  "vacinado": true,
-  "descricao": "Um cãozinho muito dócil e brincalhão, adora crianças e outros animais. Se adapta bem em apartamentos.",
-  "foto": " --- "
-}
-```
+| Campo (KEY) | Tipo | Exemplo de Valor (VALUE) |
+| :--- | :--- | :--- |
+| `nome` | Text | `Bolinha` |
+| `especie` | Text | `Cachorro` |
+| `porte` | Text | `Pequeno` |
+| `castrado` | Text | `true` |
+| `vacinado` | Text | `true` |
+| `descricao`| Text | `Um cãozinho muito dócil...` |
+| `foto` | **File** | (Selecione o arquivo de imagem) |
 
 #### Gerenciamento Completo (Admin)
 
@@ -146,8 +143,8 @@ Rotas que não exigem autenticação.
 | Método | Endpoint | Descrição e Exemplo de Query |
 | :--- | :--- | :--- |
 | `POST` | `http://localhost:3000/api/usuario` | Cria um novo usuário (tutor). Veja o exemplo completo na **Seção 1**. |
-| `GET` | `http://localhost:3000/api/animais` | Lista os animais para adoção, com filtros opcionais. <br>**Exemplo:** `?especie=gato&porte=pequeno` |
-| `GET` | `http://localhost:3000/api/animais/:id` | Exibe os detalhes de um animal que esteja **disponível para adoção**. |
+| `GET` | `http://localhost:3000/api/animais` | Lista **todos os animais cadastrados**, com filtros opcionais. <br>**Exemplo:** `?especie=gato&porte=pequeno` |
+| `GET` | `http://localhost:3000/api/animais/:id` | Exibe os detalhes de um animal específico pelo seu ID. |
 
 #### Realizando uma Doação
 
