@@ -147,7 +147,7 @@ Rotas que não exigem autenticação.
 | :--- | :--- | :--- |
 | `POST` | `http://localhost:3000/api/usuario` | Cria um novo usuário (tutor). Veja o exemplo completo na **Seção 1**. |
 | `GET` | `http://localhost:3000/api/animais` | Lista os animais para adoção, com filtros opcionais. <br>**Exemplo:** `?especie=gato&porte=pequeno` |
-| `GET` | `http://localhost:3000/api/animais/:id` | Exibe os detalhes de um animal específico. |
+| `GET` | `http://localhost:3000/api/animais/:id` | Exibe os detalhes de um animal que esteja **disponível para adoção**. |
 
 #### Realizando uma Doação
 
@@ -242,4 +242,3 @@ Antes de poder solicitar uma adoção, o tutor **deve** preencher completamente 
 ## 👥 Desenvolvedores
 
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
-
