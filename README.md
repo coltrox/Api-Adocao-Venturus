@@ -33,7 +33,7 @@ Crie o arquivo `.env` na raiz:
 ```env
 PORT=3000
 DB_STORAGE=./database.sqlite
-JWT_SECRET=sua_chave_secreta_super_segura
+JWT_SECRET=sua_chave
 ```
 
 Opcional: criar usuário admin inicial:
@@ -237,5 +237,6 @@ Antes de poder solicitar uma adoção, o tutor **deve** preencher completamente 
 -----
 
 ## 👥 Desenvolvedores
+
 
 **Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
