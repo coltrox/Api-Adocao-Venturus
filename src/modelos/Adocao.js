@@ -16,15 +16,10 @@ const Adocao = sequelize.define('Adocao', {
         allowNull: false
     },
     status: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('em_analise', 'aprovada', 'recusada'),
         defaultValue: 'em_analise',
-        validate: {
-            isIn: {
-                args: [['em_analise', 'aprovada', 'recusada']],
-                msg: "Status deve ser 'em_analise', 'aprovada' ou 'recusada'"
-            }
-        }
-    },
+        allowNull: false
+      },
     posicao_fila: {
         type: DataTypes.INTEGER,
         allowNull: false

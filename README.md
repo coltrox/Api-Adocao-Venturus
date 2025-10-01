@@ -32,7 +32,11 @@ Crie o arquivo `.env` na raiz:
 
 ```env
 PORT=3000
-DB_STORAGE=./database.sqlite
+DB_USERNAME=postgres
+DB_PASSWORD=api-adocao-venturus 
+DB_HOST=db.vvtykjyqsclsddbuthin.supabase.co
+DB_PORT=5432
+DB_NAME=postgres
 JWT_SECRET=sua_chave
 ```
 
