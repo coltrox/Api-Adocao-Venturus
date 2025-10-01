@@ -71,6 +71,7 @@ Para gerenciar a plataforma, o primeiro passo é criar um usuário com permissõ
 
 ```json
 {
+{
   "nome_completo": "Administrador do Sistema",
   "email": "admin@gmail.com",
   "senha": "123456",
@@ -80,7 +81,8 @@ Para gerenciar a plataforma, o primeiro passo é criar um usuário com permissõ
   "telefone": "19999999999",
   "instagram": "@adote_um_pet",
   "facebook": "/adote_um_pet",
-  "admin": true
+	"endereco": "Rua das Flores, 456",
+  "admin": true  
 }
 ```
 

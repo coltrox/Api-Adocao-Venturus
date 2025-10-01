@@ -15,10 +15,11 @@ class TutorControlador {
         telefone, 
         instagram, 
         facebook, 
+        endereco,
         admin 
       } = req.body;
 
-      if (!nome_completo || !email || !senha || !cidade || !estado || !idade || !telefone) {
+      if (!nome_completo || !email || !senha || !cidade || !estado || !idade || !telefone || !endereco) {
         return res.status(400).json({ erro: "Todos os campos obrigatórios devem ser preenchidos corretamente." });
       }
 
@@ -36,6 +37,7 @@ class TutorControlador {
         telefone,
         instagram,
         facebook,
+        endereco, 
         admin: !!admin
       });
 

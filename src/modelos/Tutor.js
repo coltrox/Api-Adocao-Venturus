@@ -46,7 +46,7 @@ const Tutor = sequelize.define('Tutor', {
     },
     endereco: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: false
     },
     admin: {
         type: DataTypes.BOOLEAN,
