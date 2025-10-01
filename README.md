@@ -245,4 +245,4 @@ Antes de poder solicitar uma adoção, o tutor **deve** preencher completamente 
 ## 👥 Desenvolvedores
 
 
-**Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozzi**
+**Pedro Coltro, Lucas D'Ávila, Mylenna Ponciano e Matheus Berozz**
